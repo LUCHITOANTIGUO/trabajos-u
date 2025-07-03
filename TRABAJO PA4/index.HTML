@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriCampus | Plan de Innovación</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Nutri-Calm -->
+    <!-- Application Structure Plan: The SPA is designed as an interactive pitch deck, guiding the user through a narrative flow: 1. The Problem (engaging with an interactive Empathy Map), 2. The Solution (clear value proposition), 3. How it Works (a functional mock-up of the MVP landing page), 4. The Business Model (an interactive Lean Canvas with charts for financials), and 5. Validation (showing proof with feedback and a results chart). This structure transforms a static business plan into a compelling story, making the project's viability easy to understand and explore, which is more effective than simply replicating the report's linear sections. -->
+    <!-- Visualization & Content Choices:
+- Empathy Map (Inform): Report Table -> Goal: Show user pain points -> Viz: Interactive HTML/CSS cards -> Interaction: Hover effects -> Justification: More engaging than a static table.
+- Lean Canvas (Organize): Report Table -> Goal: Detail the business plan -> Viz: Interactive HTML/CSS grid -> Interaction: Click-to-reveal details (simulated) -> Justification: Breaks down dense info into digestible parts.
+- Revenue/Costs (Compare): Report Lists -> Goal: Visualize financial structure -> Viz: Donut/Bar charts (Chart.js/Canvas) -> Justification: Quickly communicates financial priorities and sources.
+- Validation Results (Inform): Report Text -> Goal: Show positive user feedback -> Viz: Bar chart (Chart.js/Canvas) -> Interaction: Tooltips on hover -> Justification: Provides quantitative proof of interest from the informal test.
+- MVP Mock-up (Demonstrate): Report Image Placeholder -> Goal: Simulate the proposed service -> Viz: Interactive HTML/CSS elements -> Interaction: Clickable buttons showing fake menus/confirmation -> Justification: Brings the MVP concept to life functionally.
+- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .chart-container { position: relative; width: 100%; max-width: 400px; margin-left: auto; margin-right: auto; height: 300px; max-height: 350px; }
+        @media (min-width: 640px) { .chart-container { height: 350px; } }
+        .nav-link { transition: color 0.3s, border-color 0.3s; }
+        .nav-link.active { color: #22c55e; border-bottom-color: #22c55e; }
+        .lean-canvas-card { transition: transform 0.2s, box-shadow 0.2s; }
+        .lean-canvas-card:hover { transform: translateY(-5px); }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <a href="#hero" class="text-xl font-bold text-green-600">NutriCampus</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#problema" class="nav-link text-stone-600 hover:text-green-600 border-b-2 border-transparent pb-1">El Problema</a>
+                    <a href="#solucion" class="nav-link text-stone-600 hover:text-green-600 border-b-2 border-transparent pb-1">La Solución</a>
+                    <a href="#modelo" class="nav-link text-stone-600 hover:text-green-600 border-b-2 border-transparent pb-1">El Modelo</a>
+                    <a href="#validacion" class="nav-link text-stone-600 hover:text-green-600 border-b-2 border-transparent pb-1">Validación</a>
+                    <a href="#equipo" class="nav-link text-stone-600 hover:text-green-600 border-b-2 border-transparent pb-1">Equipo</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="py-20 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-stone-800 leading-tight">
+                    Come bien, rinde más. <span class="text-green-600">Sin esfuerzo.</span>
+                </h1>
+                <p class="mt-6 text-lg text-stone-600 max-w-2xl mx-auto">
+                    Presentamos NutriCampus, el plan de innovación que resuelve el dilema de la alimentación universitaria. Un servicio diseñado para que los estudiantes recuperen su tiempo y energía.
+                </p>
+                <a href="#solucion" class="mt-8 inline-block bg-green-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-green-700 transition-transform transform hover:scale-105">
+                    Descubre cómo
+                </a>
+            </div>
+        </section>
+
+        <section id="problema" class="py-16">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold">Entendiendo al Estudiante</h2>
+                    <p class="mt-4 text-stone-600 max-w-2xl mx-auto">Aplicamos Design Thinking para refinar nuestra comprensión. El problema no es solo la comida, es la carga mental. El estudiante anhela una solución automática y conveniente.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-yellow-400">
+                        <h3 class="font-bold text-lg mb-2">🤔 ¿Qué Piensa y Siente?</h3>
+                        <p class="text-stone-600">"Estoy agotado, no tengo tiempo para pensar en qué cocinar. Ojalá pudiera apretar un botón y tener comida rica y saludable lista para mí. Sin pensar, sin decidir."</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-red-400">
+                        <h3 class="font-bold text-lg mb-2">👀 ¿Qué Ve?</h3>
+                        <p class="text-stone-600">Comida chatarra por todas partes, largas filas en las cafeterías, compañeros cansados y máquinas expendedoras llenas de snacks ultraprocesados.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-400">
+                        <h3 class="font-bold text-lg mb-2">🗣️ ¿Qué Dice y Hace?</h3>
+                        <p class="text-stone-600">"Hoy no almuerzo, estoy lleno de trabajos". Opta por lo más rápido y barato, aunque se sienta culpable. Se queja de cansancio y falta de concentración.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-purple-400">
+                        <h3 class="font-bold text-lg mb-2">🎯 Deseo Clave</h3>
+                        <p class="text-stone-600">Anhela una solución <strong>"automática" y conveniente</strong> que elimine la carga mental y el estrés de planificar sus comidas diarias.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="solucion" class="py-16 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold">Nuestra Solución: El Prototipo MVP</h2>
+                    <p class="mt-4 text-stone-600 max-w-2xl mx-auto">Para validar nuestra idea de forma rápida y sin costo, diseñamos un prototipo de servicio: una landing page simple que simula la experiencia NutriCampus.</p>
+                </div>
+                
+                <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden border border-stone-200">
+                    <div class="bg-cover bg-center h-48" style="background-image: url('https://placehold.co/1000x400/a7f3d0/1c1917?text=NutriCampus&font=raleway');">
+                    </div>
+                    <div class="p-6 md:p-10">
+                        <h3 class="text-2xl md:text-3xl font-bold text-center text-green-700">Tu almuerzo saludable, a un clic.</h3>
+                        <p class="text-stone-600 text-center mt-3">Olvídate de cocinar. Elige tu plan y nosotros te llevamos almuerzos deliciosos y nutritivos a tu campus.</p>
+                        
+                        <div id="menu-semanal" class="mt-8 border-t border-stone-200 pt-6">
+                             <h4 class="font-bold text-lg text-center mb-4">Menú de la Semana (Ejemplo)</h4>
+                             <div id="menu-content" class="text-center bg-green-50 p-4 rounded-lg">
+                                 <p class="font-semibold">Cargando menú...</p>
+                             </div>
+                        </div>
+
+                        <div class="mt-8 grid md:grid-cols-2 gap-6">
+                            <div class="border border-stone-200 rounded-lg p-6 text-center">
+                                <h4 class="font-bold text-xl">Plan 3 Días</h4>
+                                <p class="text-3xl font-bold my-2">S/ 36</p>
+                                <p class="text-stone-500">(S/ 12 por día)</p>
+                                <button onclick="mostrarMenu('plan3')" class="mt-4 w-full bg-stone-200 text-stone-800 font-bold py-2 px-4 rounded-lg hover:bg-stone-300 transition">Ver Menú</button>
+                            </div>
+                            <div class="border-2 border-green-600 rounded-lg p-6 text-center relative">
+                                <span class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full">MÁS POPULAR</span>
+                                <h4 class="font-bold text-xl">Plan 5 Días</h4>
+                                <p class="text-3xl font-bold my-2">S/ 60</p>
+                                <p class="text-stone-500">(S/ 12 por día)</p>
+                                <button onclick="mostrarMenu('plan5')" class="mt-4 w-full bg-stone-200 text-stone-800 font-bold py-2 px-4 rounded-lg hover:bg-stone-300 transition">Ver Menú</button>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 text-center">
+                            <button id="cta-button" onclick="mostrarConfirmacion()" class="w-full md:w-auto bg-green-600 text-white font-bold py-3 px-10 rounded-lg shadow-lg hover:bg-green-700 transition-transform transform hover:scale-105">
+                                ¡Pide tu Semana de Prueba!
+                            </button>
+                            <p id="confirmation-message" class="mt-4 text-green-700 font-semibold hidden">¡Gracias por tu interés! Con este clic, acabas de validar que nuestra idea tiene potencial. En un proyecto real, te llevaríamos a un formulario de registro.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        
+        <section id="modelo" class="py-16">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold">Nuestro Modelo de Negocio (Lean Canvas)</h2>
+                    <p class="mt-4 text-stone-600 max-w-2xl mx-auto">Un plan de negocio ágil, enfocado en resolver problemas reales con una estructura de costos ligera y canales directos.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <div class="lean-canvas-card bg-white p-6 rounded-lg shadow-md">
+                        <h4 class="font-bold mb-2 text-red-600">Problema</h4>
+                        <ul class="list-disc list-inside text-stone-600 space-y-1">
+                            <li>Falta de tiempo para cocinar.</li>
+                            <li>Opciones en campus poco saludables.</li>
+                            <li>Bajo rendimiento por mala alimentación.</li>
+                        </ul>
+                    </div>
+                    <div class="lean-canvas-card bg-white p-6 rounded-lg shadow-md">
+                        <h4 class="font-bold mb-2 text-green-600">Solución</h4>
+                        <ul class="list-disc list-inside text-stone-600 space-y-1">
+                            <li>Servicio de suscripción a almuerzos.</li>
+                            <li>Entrega directa en puntos del campus.</li>
+                            <li>Gestión simple (Formulario / WhatsApp).</li>
+                        </ul>
+                    </div>
+                    <div class="lean-canvas-card bg-white p-6 rounded-lg shadow-md">
+                        <h4 class="font-bold mb-2 text-blue-600">Métricas Clave</h4>
+                        <ul class="list-disc list-inside text-stone-600 space-y-1">
+                            <li>Nº de interesados registrados.</li>
+                            <li>Tasa de conversión a prueba.</li>
+                            <li>Feedback cualitativo.</li>
+                        </ul>
+                    </div>
+                    <div class="lean-canvas-card bg-white p-6 rounded-lg shadow-md lg:col-span-3">
+                        <h4 class="font-bold mb-2 text-purple-600">Propuesta Única de Valor</h4>
+                        <p class="text-stone-600"><strong>Come bien, rinde más. Sin esfuerzo.</strong> Recibe almuerzos deliciosos y saludables en tu campus. Nosotros cocinamos, tú estudias.</p>
+                    </div>
+                    <div class="lean-canvas-card bg-white p-6 rounded-lg shadow-md">
+                        <h4 class="font-bold mb-2 text-yellow-600">Canales</h4>
+                         <ul class="list-disc list-inside text-stone-600 space-y-1">
+                            <li>Landing Page (Canva / Google Sites).</li>
+                            <li>Redes Sociales (Instagram).</li>
+                            <li>Afiches con QR en campus.</li>
+                        </ul>
+                    </div>
+                    <div class="lean-canvas-card bg-white p-6 rounded-lg shadow-md">
+                        <h4 class="font-bold mb-2 text-indigo-600">Segmentos de Clientes</h4>
+                        <p class="text-stone-600"><strong>Early Adopters:</strong> Estudiantes que ya gastan en delivery o se quejan activamente de la falta de opciones saludables.</p>
+                    </div>
+                     <div class="lean-canvas-card bg-white p-6 rounded-lg shadow-md">
+                        <h4 class="font-bold mb-2 text-pink-600">Ventaja Injusta</h4>
+                        <p class="text-stone-600">Alianzas con cafeterías existentes para usar sus cocinas o puntos de entrega, reduciendo costos drásticamente.</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 grid md:grid-cols-2 gap-8 items-center">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold text-center mb-4">Fuentes de Ingresos</h3>
+                        <div class="chart-container">
+                            <canvas id="ingresosChart"></canvas>
+                        </div>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold text-center mb-4">Estructura de Costos</h3>
+                         <div class="chart-container">
+                            <canvas id="costosChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="validacion" class="py-16 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold">Validación y Resultados</h2>
+                    <p class="mt-4 text-stone-600 max-w-2xl mx-auto">Presentamos el prototipo a 5 compañeros. El feedback fue directo, rápido y muy valioso para ajustar la propuesta.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-green-100 p-6 rounded-lg">
+                        <h4 class="font-bold mb-2">💡 Ajuste 1: Claridad en el Precio</h4>
+                        <p class="text-stone-700">"El precio semanal (S/ 60) suena a mucho". <br><strong>Ajuste:</strong> Mostramos el precio por día (S/ 12), haciéndolo mucho más asequible y comparable a otras opciones.</p>
+                    </div>
+                    <div class="bg-green-100 p-6 rounded-lg">
+                        <h4 class="font-bold mb-2">🔒 Ajuste 2: Reducir el Riesgo</h4>
+                        <p class="text-stone-700">"¿Y si no me gusta la comida?". <br><strong>Ajuste:</strong> Añadimos una "Semana de Prueba con Descuento" para eliminar la barrera de confianza inicial.</p>
+                    </div>
+                    <div class="bg-green-100 p-6 rounded-lg">
+                        <h4 class="font-bold mb-2">✅ Conclusión Principal</h4>
+                        <p class="text-stone-700">Todos entendieron la propuesta de valor inmediatamente. El concepto de "recibir tu almuerzo listo" fue el mayor atractivo.</p>
+                    </div>
+                </div>
+                <div class="mt-12 bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-center mb-4">Resultado de la Pregunta Clave</h3>
+                    <p class="text-center text-stone-600 mb-4">Preguntamos: "Viendo la página, ¿le darías clic al botón de 'Me Interesa'?"</p>
+                    <div class="chart-container" style="max-width: 600px;">
+                        <canvas id="validacionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="equipo" class="py-16">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold">El Equipo detrás de la Idea</h2>
+                    <p class="mt-4 text-stone-600">Grupo 6 - Gestión de la Creatividad e Innovación</p>
+                </div>
+                <div class="flex flex-wrap justify-center gap-6 text-center">
+                    <div class="bg-white p-4 rounded-lg shadow-md w-48">
+                        <p class="font-bold">Luis Angel Garcia Izaguirre</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md w-48">
+                        <p class="font-bold">Homero Dario Ramos Velasquez</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md w-48">
+                        <p class="font-bold">Tamara Patricia Zegarra Palacios</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md w-48">
+                        <p class="font-bold">Raul Alonso Sánchez Alcalde</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md w-48">
+                        <p class="font-bold">Rossella Alessandra Sánchez Alcalde</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-stone-800 text-white py-6">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 Grupo 6. Todos los derechos reservados.</p>
+            <p class="text-sm text-stone-400 mt-2">Este es un proyecto académico para el curso de Gestión de la Creatividad e Innovación.</p>
+        </div>
+    </footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        
+        const menuData = {
+            plan3: [
+                'Lunes: Pollo a la plancha con puré de camote y ensalada.',
+                'Miércoles: Lentejas con arroz integral y plátano frito.',
+                'Viernes: Pescado al vapor con quinua y brócoli.'
+            ],
+            plan5: [
+                'Lunes: Pollo a la plancha con puré de camote y ensalada.',
+                'Martes: Ají de gallina saludable con arroz integral.',
+                'Miércoles: Lentejas con arroz integral y plátano frito.',
+                'Jueves: Tallarines verdes con bistec.',
+                'Viernes: Pescado al vapor con quinua y brócoli.'
+            ]
+        };
+
+        window.mostrarMenu = function(plan) {
+            const menuContent = document.getElementById('menu-content');
+            const menuItems = menuData[plan];
+            menuContent.innerHTML = '<ul>' + menuItems.map(item => `<li class="py-1">${item}</li>`).join('') + '</ul>';
+        }
+
+        window.mostrarConfirmacion = function() {
+            const confirmationMessage = document.getElementById('confirmation-message');
+            confirmationMessage.classList.remove('hidden');
+            setTimeout(() => {
+                confirmationMessage.classList.add('hidden');
+            }, 5000);
+        }
+        
+        mostrarMenu('plan5');
+
+        const ingresosCtx = document.getElementById('ingresosChart').getContext('2d');
+        new Chart(ingresosCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Suscripción Semanal', 'Venta Individual (Prueba)'],
+                datasets: [{
+                    label: 'Fuentes de Ingresos',
+                    data: [85, 15],
+                    backgroundColor: ['#16a34a', '#facc15'],
+                    borderColor: '#ffffff',
+                    borderWidth: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const costosCtx = document.getElementById('costosChart').getContext('2d');
+        new Chart(costosCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Costo de Comida', 'Logística', 'Marketing'],
+                datasets: [{
+                    label: 'Estructura de Costos (%)',
+                    data: [65, 25, 10],
+                    backgroundColor: ['#3b82f6', '#8b5cf6', '#ec4899'],
+                    borderRadius: 4,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                 indexAxis: 'y',
+                scales: {
+                    x: { beginAtZero: true, max: 100 }
+                },
+                plugins: {
+                    legend: { display: false },
+                     tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const validacionCtx = document.getElementById('validacionChart').getContext('2d');
+        new Chart(validacionCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Sí, le daría clic', 'No, no le daría clic'],
+                datasets: [{
+                    label: 'Respuestas de los encuestados',
+                    data: [5, 0],
+                    backgroundColor: ['#22c55e', '#ef4444'],
+                    barThickness: 50,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { stepSize: 1 },
+                        max: 5
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: 'Resultados (sobre 5 encuestados)'}
+                }
+            }
+        });
+        
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
